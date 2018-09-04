@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified"
+	targetNamespace="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion"
+	xmlns="http://www.w3.org/2001/XMLSchema">
+	<element name="nombre" type="string"/>
+	<element name="mensaje" type="string"/>
+ <element name="estado" type="string"/>
+</schema>

@@ -1,0 +1,165 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Tue Sep 04 14:28:37 CEST 2018
+  Author:  egsma
+  Type: BPEL 2.0 Process
+  Purpose: Asynchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="correlacion"
+         targetNamespace="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:client="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:ui="http://xmlns.oracle.com/soa/designer"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:ns1="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion/correlationset"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:stat="http://www.oracle.com/XSL/Transform/java/soa.cookbook.xpath.StdDev"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:ess="http://xmlns.oracle.com/scheduler" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap">
+    <bpelx:annotation>
+        <bpelx:analysis>
+            <bpelx:property name="propertiesFile">
+                <![CDATA[../WSDLs/correlacion_properties.wsdl]]>
+            </bpelx:property>
+        </bpelx:analysis>
+    </bpelx:annotation>
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion" location="../WSDLs/correlacion.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+    <partnerLinks>
+        <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+        <partnerLink name="correlacion_client" partnerLinkType="client:correlacion" myRole="correlacionProvider" partnerRole="correlacionRequester"/>
+        <partnerLink name="estado" partnerLinkType="client:estado" myRole="correlacionEstado"/>
+    </partnerLinks>
+    <variables>
+        <variable name="receiveInput_process_InputVariable" messageType="client:correlacionRequestMessage"/>
+        <variable name="Receive1_estado_InputVariable" messageType="client:correlacionRequestMessage"/>
+        <variable name="Receive1_estado_InputVariable_1" messageType="client:correlacionRequestMessage"/>
+        <variable name="Reply1_estado_OutputVariable" messageType="client:correlacionEstado"/>
+        <variable name="Reply2_estado_OutputVariable" messageType="client:correlacionEstado"/>
+        <variable name="callbackClient_1_processResponse_InputVariable"
+                  messageType="client:correlacionResponseMessage"/>
+        <variable name="callbackClient_2_processResponse_InputVariable"
+                  messageType="client:correlacionResponseMessage"/>
+        <variable name="respuesta_process_OutputVariable" messageType="client:correlacionEstado"/>
+    </variables>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        VARIABLES                                                        
+        List of messages and XML documents used within this BPEL process 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <correlationSets>
+        <correlationSet name="miCorrelationSet" properties="ns1:msg_id"/>
+    </correlationSets>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       ORCHESTRATION LOGIC                                               
+       Set of activities coordinating the flow of messages across the    
+       services integrated within this business process                  
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <sequence name="main">
+        <!-- Receive input from requestor. (Note: This maps to operation defined in correlacion.wsdl) -->
+        <receive name="receiveInput" partnerLink="correlacion_client" portType="client:correlacion" operation="process"
+                 variable="receiveInput_process_InputVariable" createInstance="yes">
+            <correlations>
+                <correlation set="miCorrelationSet" initiate="yes"/>
+            </correlations>
+        </receive>
+        <assign name="Assign1">
+            <copy>
+                <from>'inicio'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$respuesta_process_OutputVariable.payload</to>
+            </copy>
+        </assign><reply name="respuesta" partnerLink="correlacion_client" variable="respuesta_process_OutputVariable"
+               portType="client:correlacion" operation="process"/>
+        <wait name="Wait1">
+            <for>'PT30S'</for>
+        </wait>
+        <assign name="Assign2" xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+            <copy>
+                <from>'paso 1'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$callbackClient_1_processResponse_InputVariable.payload</to>
+            </copy>
+        </assign>
+        <!-- 
+          Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
+        -->
+        <invoke name="callbackClient_1" partnerLink="correlacion_client" portType="client:correlacionCallback" operation="processResponse"
+                inputVariable="callbackClient_1_processResponse_InputVariable" bpelx:invokeAsDetail="no"/>
+        <receive name="Receive1" partnerLink="estado" portType="client:correlacionEstado" operation="estado"
+                 variable="Receive1_estado_InputVariable_1">
+            <correlations>
+                <correlation set="miCorrelationSet" initiate="no"/>
+            </correlations>
+        </receive>
+        <assign name="Assign3">
+            <copy>
+                <from>'paso 2'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply1_estado_OutputVariable.payload</to>
+            </copy>
+        </assign><reply name="Reply1" partnerLink="estado" variable="Reply1_estado_OutputVariable"
+               portType="client:correlacionEstado" operation="estado"/>
+        <scope name="Scope1">
+            <eventHandlers>
+                <onEvent partnerLink="estado" portType="client:correlacionEstado" operation="estado" variable="pepe" messageType="client:correlacionEstado">
+                    <correlations>
+                        <correlation set="miCorrelationSet" initiate="no"/>
+                    </correlations>
+                    <scope name="Scope2">
+                        <sequence>
+                            <assign name="Assign4" xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+                                <copy>
+                                    <from>'paso 3'</from>
+                                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Reply2_estado_OutputVariable.payload</to>
+                                </copy>
+                                <copy>
+                                    <from>$Reply2_estado_OutputVariable.payload</from>
+                                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$callbackClient_2_processResponse_InputVariable.payload</to>
+                                </copy>
+                            </assign><reply name="Reply2" partnerLink="estado" variable="Reply2_estado_OutputVariable"
+                                   portType="client:correlacionEstado" operation="estado"/>
+                        </sequence>
+                    </scope>
+                </onEvent>
+            </eventHandlers>
+            <sequence>
+                <wait name="Wait2">
+                    <for>'PT2M'</for>
+                </wait>
+                <assign name="Assign5" xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+                    <copy>
+                        <from>'paso 4'</from>
+                        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$callbackClient_2_processResponse_InputVariable.payload</to>
+                    </copy>
+                </assign>
+            </sequence>
+        </scope>
+        <invoke name="callbackClient_2" partnerLink="correlacion_client"
+                portType="client:correlacionCallback" operation="processResponse"
+                inputVariable="callbackClient_2_processResponse_InputVariable" bpelx:invokeAsDetail="no"/>
+    </sequence>
+</process>

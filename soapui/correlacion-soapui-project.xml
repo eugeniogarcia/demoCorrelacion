@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="cbd59db5-719c-4e01-bb38-bfd075819ce8" activeEnvironment="Default" name="correlacion" soapui-version="5.4.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="769eef49-ba70-4fc4-8baf-13f455cccf72" wsaVersion="200508" name="correlacionBinding" type="wsdl" bindingName="{http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion}correlacionBinding" soapVersion="1_1" anonymous="optional" definition="http://retaco:7101/soa-infra/services/default/correlacionWS_demo/principal?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints><con:endpoint>http://retaco:7101/soa-infra/services/default/correlacionWS_demo/principal</con:endpoint></con:endpoints><con:operation id="86ea6c20-1ac1-44e5-817a-da6e738e58f7" isOneWay="false" action="process" name="process" bindingOperationName="process" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="adffd82f-646d-47c1-bd03-08cf35146fa6" name="Request 1" useWsAddressing="true"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://retaco:7101/soa-infra/services/default/correlacionWS_demo/principal</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cor="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cor:nombre>eugenio</cor:nombre>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="process" generateMessageId="true" replyTo="http://localhost:8088/mockcorrelacionCallbackBinding"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="31c17bfe-2507-4e91-8622-d4eca8528168" wsaVersion="NONE" name="correlacionEstadoBinding" type="wsdl" bindingName="{http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion}correlacionEstadoBinding" soapVersion="1_1" anonymous="optional" definition="http://retaco:7101/soa-infra/services/default/correlacionWS_demo/principal?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints/><con:operation id="48926730-0e0d-484e-854e-cab3d6b5cb37" isOneWay="false" action="estado" name="estado" bindingOperationName="estado" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b7f48645-adf7-4b62-8818-6e17f62c9952" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://retaco:7101/soa-infra/services/default/correlacionWS_demo/estado</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cor="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cor:nombre>eugenio</cor:nombre>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="estado"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="9d5d0788-a065-487e-9e0c-e877212493cd" wsaVersion="NONE" name="correlacionCallbackBinding" type="wsdl" bindingName="{http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion}correlacionCallbackBinding" soapVersion="1_1" anonymous="optional" definition="http://retaco:7101/soa-infra/services/default/correlacionWS_demo/principal?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://retaco:7101/soa-infra/services/default/correlacionWS_demo/principal?WSDL"><con:part><con:url>http://retaco:7101/soa-infra/services/default/correlacionWS_demo/principal?WSDL</con:url><con:content><![CDATA[<wsdl:definitions name="correlacion" targetNamespace="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:cor="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion/correlationset" xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:documentation>
+    <abstractWSDL>http://retaco:7101/soa-infra/services/default/correlacionWS_demo!1.0/WSDLs/correlacion.wsdl</abstractWSDL>
+  </wsdl:documentation>
+  <plnk:partnerLinkType name="correlacion">
+    <plnk:role name="correlacionProvider" portType="client:correlacion"/>
+    <plnk:role name="correlacionRequester" portType="client:correlacionCallback"/>
+  </plnk:partnerLinkType>
+  <plnk:partnerLinkType name="estado">
+    <plnk:role name="correlacionEstado" portType="client:correlacionEstado"/>
+  </plnk:partnerLinkType>
+  <vprop:propertyAlias propertyName="cor:msg_id" messageType="client:correlacionRequestMessage" part="payload"/>
+  <vprop:propertyAlias propertyName="cor:msg_id" messageType="client:correlacionEstado" part="payload"/>
+  <wsp:Policy wsu:Id="wsaddr_policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+    <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
+  </wsp:Policy>
+  <wsdl:import namespace="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion/correlationset" location="http://retaco:7101/soa-infra/services/default/correlacionWS_demo/principal?WSDL=correlacion_properties.wsdl"/>
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion" schemaLocation="http://retaco:7101/soa-infra/services/default/correlacionWS_demo/principal?XSD=../Schemas/correlacion.xsd"/>
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="correlacionRequestMessage">
+    <wsdl:part name="payload" element="client:nombre"/>
+  </wsdl:message>
+  <wsdl:message name="correlacionEstado">
+    <wsdl:part name="payload" element="client:estado"/>
+  </wsdl:message>
+  <wsdl:message name="correlacionResponseMessage">
+    <wsdl:part name="payload" element="client:mensaje"/>
+  </wsdl:message>
+  <wsdl:portType name="correlacion">
+    <wsdl:operation name="process">
+      <wsdl:input message="client:correlacionRequestMessage"/>
+      <wsdl:output message="client:correlacionEstado"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="correlacionCallback">
+    <wsdl:operation name="processResponse">
+      <wsdl:input message="client:correlacionResponseMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="correlacionEstado">
+    <wsdl:operation name="estado">
+      <wsdl:input message="client:correlacionRequestMessage"/>
+      <wsdl:output message="client:correlacionEstado"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="correlacionBinding" type="client:correlacion">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:PolicyReference URI="#wsaddr_policy" wsdl:required="false" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"/>
+    <wsdl:operation name="process">
+      <soap:operation style="document" soapAction="process"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="correlacionCallbackBinding" type="client:correlacionCallback">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="processResponse">
+      <soap:operation style="document" soapAction="processResponse"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="correlacionEstadoBinding" type="client:correlacionEstado">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="estado">
+      <soap:operation style="document" soapAction="estado"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="principal">
+    <wsdl:port name="correlacion_pt" binding="client:correlacionBinding">
+      <soap:address location="http://retaco:7101/soa-infra/services/default/correlacionWS_demo/principal"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://retaco:7101/soa-infra/services/default/correlacionWS_demo/principal?WSDL=correlacion_properties.wsdl</con:url><con:content>&lt;wsdl:definitions name="properties" targetNamespace="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion/correlationset" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;vprop:property name="msg_id" type="xsd:string"/>
+&lt;/wsdl:definitions></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://retaco:7101/soa-infra/services/default/correlacionWS_demo/principal?XSD=../Schemas/correlacion.xsd</con:url><con:content>&lt;schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion" xmlns="http://www.w3.org/2001/XMLSchema">
+  &lt;element name="nombre" type="string"/>
+  &lt;element name="mensaje" type="string"/>
+  &lt;element name="estado" type="string"/>
+&lt;/schema></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://Retaco:8088/mockcorrelacionCallbackBinding</con:endpoint></con:endpoints><con:operation id="2eb8d839-ae52-4a67-a9ce-f4d8687c5a79" isOneWay="false" action="processResponse" name="processResponse" bindingOperationName="processResponse" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d8dfbe71-8800-4fcb-8fbb-c8643807aa2c" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cor="http://xmlns.oracle.com/correlacionWebServices_demo/correlacionWS_demo/correlacion">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cor:mensaje>?</cor:mensaje>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="processResponse"/></con:call></con:operation></con:interface><con:mockService id="7305804c-f810-4e9e-af1c-8012c4b496c8" port="8088" path="/mockcorrelacionCallbackBinding" host="Retaco" name="correlacionCallbackBinding MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:onRequestScript>log.info "se ha recibido un cambio de estado"
+if(mockRequest!=null){
+	log.info "Contenido: ${mockRequest.requestContent}"
+}</con:onRequestScript><con:mockOperation name="processResponse" id="446fdad6-bc06-4837-8e3a-f0fc9b9b6d97" interface="correlacionCallbackBinding" operation="processResponse"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="77aa8763-a513-4903-9cba-d11d8195621a" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent/><con:wsaConfig mustUnderstand="NONE" version="200508" action="processResponse"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
